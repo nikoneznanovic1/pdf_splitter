@@ -1,15 +1,71 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Free PDF Splitter</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-  <h1>Split your PDF online for free</h1>
-  <form method="post" enctype="multipart/form-data">
-    <input type="file" name="pdf" accept="application/pdf" required>
-    <br>
-    <button type="submit">Split PDF</button>
-  </form>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}PDF Toolkit - Free Online PDF Tools{% endblock %}
+{% block description %}Split, merge, compress, convert and watermark PDF files online for free. Fast, simple and secure!{% endblock %}
+
+{% block content %}
+
+<h1 class="display-5 fw-semibold mb-4">All-in-One Free PDF Tools</h1>
+<p class="lead mb-5">Fast, free online tools for your PDFs</p>
+
+<!-- Tools Grid -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+  <!-- Split PDF -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Split PDF</h5>
+        <p class="card-text">Split large PDF files into separate pages.</p>
+        <a href="/split-pdf" class="btn btn-primary">Split PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Merge PDF -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Merge PDF</h5>
+        <p class="card-text">Combine multiple PDFs into one single file.</p>
+        <a href="/merge-pdf" class="btn btn-primary">Merge PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compress PDF -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Compress PDF</h5>
+        <p class="card-text">Reduce the file size of your PDF documents.</p>
+        <a href="/compress-pdf" class="btn btn-primary">Compress PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Convert PDF -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Convert PDF</h5>
+        <p class="card-text">Convert PDF pages to images easily.</p>
+        <a href="/convert-pdf" class="btn btn-primary">Convert PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Watermark PDF -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Watermark PDF</h5>
+        <p class="card-text">Add custom watermarks to your PDFs.</p>
+        <a href="/watermark-pdf" class="btn btn-primary">Watermark PDF</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free and easy PDF tools to split, merge, compress, convert and watermark your PDF files online." />
+  <meta name="keywords" content="pdf tools, split pdf, merge pdf, compress pdf, convert pdf, watermark pdf, free pdf editor" />
+  <meta name="author" content="PDF Hub" />
+
+  <title>PDF Hub - Free Online PDF Tools</title>
+  <link rel="canonical" href="https://pdfhub.org/" />
+
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="PDF Hub - Free Online PDF Tools" />
+  <meta property="og:description" content="Split, merge, compress, convert and watermark PDFs with ease. 100% free and secure." />
+  <meta property="og:image" content="https://pdfhub.org/static/og-image.png" />
+  <meta property="og:url" content="https://pdfhub.org/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PDF Hub - Free Online PDF Tools" />
+  <meta name="twitter:description" content="All-in-one PDF toolkit. 100% free and no signup." />
+  <meta name="twitter:image" content="https://pdfhub.org/static/og-image.png" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="48x48" href="{{ url_for('static', filename='favicon-48x48.png') }}">
+  <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='favicon-64x64.png') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+  <!-- Fonts & Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+  </style>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXX"
+          crossorigin="anonymous"></script>
+
+  <!-- Cookie Consent -->
+  <script defer src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
+  <script>
+    window.addEventListener("load", function () {
+      window.cookieconsent.initialise({
+        palette: {
+          popup: { background: "#000" },
+          button: { background: "#f1d600" }
+        },
+        theme: "classic",
+        content: {
+          message: "This website uses cookies to ensure you get the best experience.",
+          dismiss: "Got it!",
+          link: "Learn more",
+          href: "/privacy"
+        }
+      });
+    });
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+
+<body class="bg-light">
+  <div class="container py-5 text-center">
+    
+    <!-- Logo / Title -->
+    <header class="mb-4">
+      <a href="/">
+        <img src="{{ url_for('static', filename='og-image.png') }}" 
+             alt="PDF Hub Logo" 
+             style="max-height: 100px; width: auto;" />
+      </a>
+    </header>
+
+    <!-- Optional Google Ad (nad vsebino) -->
+    <div class="my-4">
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center;"
+           data-ad-client="ca-pub-XXXXXXXXXXXX"
+           data-ad-slot="YYYYYYYYYYYY"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Optional Google Ad (pod vsebino) -->
+    <div class="my-4">
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center;"
+           data-ad-client="ca-pub-XXXXXXXXXXXX"
+           data-ad-slot="ZZZZZZZZZZZZ"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-5 text-muted small">
+      &copy; 2025 PDF Hub |
+      <a href="/privacy">Privacy Policy</a> |
+      <a href="/terms">Terms of Service</a>
+    </footer>
+  </div>
+
+  <!-- Optional Bootstrap Bundle (JS + Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>

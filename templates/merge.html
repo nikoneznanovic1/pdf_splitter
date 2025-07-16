@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Merge PDF - Free Online PDF Merger | PDF Hub{% endblock %}
+{% block description %}Combine multiple PDF files into a single document with our free online PDF merger. Secure, fast, and easy to use.{% endblock %}
+
+{% block extra_head %}
+  <link rel="canonical" href="https://pdfhub.org/merge-pdf">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Merge PDF",
+      "description": "Combine multiple PDF files into a single document with our free online PDF merger. Secure, fast, and easy to use.",
+      "url": "https://pdfhub.org/merge-pdf"
+    }
+  </script>
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Merge PDF</h2>
+
+<form id="mergeForm">
+  <input type="file" id="pdfFiles" accept="application/pdf" class="form-control mb-3" multiple required>
+  <button type="submit" id="submitBtn" class="btn btn-primary">Merge PDF</button>
+</form>
+
+<!-- Progress Bar -->
+<div class="progress my-4" style="height: 25px; display: none;" id="progressContainer">
+  <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+       role="progressbar" style="width: 0%">0%</div>
+</div>
+
+<p class="mt-4"><a href="/" class="text-decoration-none">⬅ Back to Home</a></p>
+
+<!-- AJAX Logic -->
+<script>
+  const form = document.getElementById('mergeForm');
+  const fileInput = document.getElementById('pdfFiles');
+  const progressContainer = document.getElementById('progressContainer');
+  const progressBar = document.getElementById('progressBar');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const files = fileInput.files;
+    if (!files.length) return;
+
+    submitBtn.disabled = true;
+    progressContainer.style.display = 'block';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/merge-pdf');
+
+    xhr.upload.onprogress = function(e) {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+        progressBar.style.width = percent + '%';
+        progressBar.textContent = percent + '%';
+      }
+    };
+
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        const blob = new Blob([xhr.response], { type: 'application/pdf' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'merged.pdf';
+        link.click();
+      } else {
+        alert('Something went wrong.');
+      }
+      reset();
+    };
+
+    xhr.onerror = reset;
+    xhr.responseType = 'blob';
+
+    const formData = new FormData();
+    for (const file of files) {
+      formData.append('pdfs', file);
+    }
+    xhr.send(formData);
+
+    function reset() {
+      progressBar.style.width = '0%';
+      progressBar.textContent = '0%';
+      progressContainer.style.display = 'none';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Add Watermark to PDF - PDF Toolkit{% endblock %}
+{% block description %}Easily add custom watermark text to your PDF files. Free, secure and fast online PDF watermark tool.{% endblock %}
+
+{% block extra_head %}
+  <link rel="canonical" href="https://pdfhub.org/watermark-pdf">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Add Watermark to PDF",
+      "description": "Easily add custom watermark text to your PDF files. Free, secure and fast online PDF watermark tool.",
+      "url": "https://pdfhub.org/watermark-pdf"
+    }
+  </script>
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Watermark PDF</h2>
+
+<form id="watermarkForm">
+  <input type="file" id="pdfFile" accept="application/pdf" class="form-control mb-3" required>
+  <input type="text" id="watermarkText" class="form-control mb-3" placeholder="Enter watermark text" required>
+  <button type="submit" id="submitBtn" class="btn btn-secondary">Add Watermark</button>
+</form>
+
+<!-- Progress Bar -->
+<div class="progress my-4" style="height: 25px; display: none;" id="progressContainer">
+  <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-secondary"
+       role="progressbar" style="width: 0%">0%</div>
+</div>
+
+<p class="mt-4"><a href="/" class="text-decoration-none">⬅ Back to Home</a></p>
+
+<!-- AJAX Logic -->
+<script>
+  const form = document.getElementById('watermarkForm');
+  const fileInput = document.getElementById('pdfFile');
+  const watermarkInput = document.getElementById('watermarkText');
+  const progressContainer = document.getElementById('progressContainer');
+  const progressBar = document.getElementById('progressBar');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const file = fileInput.files[0];
+    const watermark = watermarkInput.value.trim();
+    if (!file || !watermark) return;
+
+    submitBtn.disabled = true;
+    progressContainer.style.display = 'block';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/watermark-pdf');
+
+    xhr.upload.onprogress = function(e) {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+        progressBar.style.width = percent + '%';
+        progressBar.textContent = percent + '%';
+      }
+    };
+
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        const blob = new Blob([xhr.response], { type: 'application/pdf' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'watermarked.pdf';
+        link.click();
+      } else {
+        alert('Something went wrong.');
+      }
+      reset();
+    };
+
+    xhr.onerror = reset;
+    xhr.responseType = 'blob';
+
+    const formData = new FormData();
+    formData.append('pdf', file);
+    formData.append('watermark', watermark);
+    xhr.send(formData);
+
+    function reset() {
+      progressBar.style.width = '0%';
+      progressBar.textContent = '0%';
+      progressContainer.style.display = 'none';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+{% endblock %}

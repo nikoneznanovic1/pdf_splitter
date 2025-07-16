@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Split PDF - Free Online PDF Splitter | PDF Hub{% endblock %}
+{% block description %}Use our free online tool to split PDF files into individual pages. Secure, fast, and easy to use. Powered by PDFHub.org.{% endblock %}
+
+{% block extra_head %}
+  <link rel="canonical" href="https://pdfhub.org/split-pdf">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Split PDF",
+      "description": "Use our free online tool to split PDF files into individual pages. Secure, fast, and easy to use. Powered by PDFHub.org.",
+      "url": "https://pdfhub.org/split-pdf"
+    }
+  </script>
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Split PDF</h2>
+
+<form id="splitForm">
+  <input type="file" id="pdfFile" accept="application/pdf" class="form-control mb-3" required>
+  <button type="submit" id="submitBtn" class="btn btn-success">Split PDF</button>
+</form>
+
+<!-- Progress Bar -->
+<div class="progress my-4" style="height: 25px; display: none;" id="progressContainer">
+  <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+       role="progressbar" style="width: 0%">0%</div>
+</div>
+
+<p class="mt-4"><a href="/" class="text-decoration-none">⬅ Back to Home</a></p>
+
+<!-- AJAX Logic -->
+<script>
+  const form = document.getElementById('splitForm');
+  const fileInput = document.getElementById('pdfFile');
+  const progressContainer = document.getElementById('progressContainer');
+  const progressBar = document.getElementById('progressBar');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    submitBtn.disabled = true;
+    progressContainer.style.display = 'block';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/split-pdf');
+
+    xhr.upload.onprogress = function(e) {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+        progressBar.style.width = percent + '%';
+        progressBar.textContent = percent + '%';
+      }
+    };
+
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        const blob = new Blob([xhr.response], { type: 'application/zip' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'split_pages.zip';
+        link.click();
+      } else {
+        alert('Something went wrong.');
+      }
+      reset();
+    };
+
+    xhr.onerror = reset;
+    xhr.responseType = 'blob';
+
+    const formData = new FormData();
+    formData.append('pdf', file);
+    xhr.send(formData);
+
+    function reset() {
+      progressBar.style.width = '0%';
+      progressBar.textContent = '0%';
+      progressContainer.style.display = 'none';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+{% endblock %}

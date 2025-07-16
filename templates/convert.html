@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Convert PDF to Images - PDF Toolkit{% endblock %}
+{% block description %}Easily convert PDF pages to high-quality images. Fast, free and secure online PDF converter to PNG or JPG.{% endblock %}
+
+{% block extra_head %}
+  <link rel="canonical" href="https://pdfhub.org/convert-pdf">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Convert PDF",
+      "description": "Easily convert PDF pages to high-quality images. Fast, free and secure online PDF converter to PNG or JPG.",
+      "url": "https://pdfhub.org/convert-pdf"
+    }
+  </script>
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Convert PDF</h2>
+
+<form id="convertForm">
+  <input type="file" id="pdfFile" accept="application/pdf" class="form-control mb-3" required>
+  <button type="submit" id="submitBtn" class="btn btn-info">Convert PDF</button>
+</form>
+
+<!-- Progress Bar -->
+<div class="progress my-4" style="height: 25px; display: none;" id="progressContainer">
+  <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+       role="progressbar" style="width: 0%">0%</div>
+</div>
+
+<p class="mt-4"><a href="/" class="text-decoration-none">⬅ Back to Home</a></p>
+
+<!-- AJAX Logic -->
+<script>
+  const form = document.getElementById('convertForm');
+  const fileInput = document.getElementById('pdfFile');
+  const progressContainer = document.getElementById('progressContainer');
+  const progressBar = document.getElementById('progressBar');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    submitBtn.disabled = true;
+    progressContainer.style.display = 'block';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/convert-pdf');
+
+    xhr.upload.onprogress = function(e) {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+        progressBar.style.width = percent + '%';
+        progressBar.textContent = percent + '%';
+      }
+    };
+
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        const blob = new Blob([xhr.response], { type: 'application/zip' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'pdf_images.zip';
+        link.click();
+      } else {
+        alert('Something went wrong.');
+      }
+      reset();
+    };
+
+    xhr.onerror = reset;
+    xhr.responseType = 'blob';
+
+    const formData = new FormData();
+    formData.append('pdf', file);
+    xhr.send(formData);
+
+    function reset() {
+      progressBar.style.width = '0%';
+      progressBar.textContent = '0%';
+      progressContainer.style.display = 'none';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+{% endblock %}

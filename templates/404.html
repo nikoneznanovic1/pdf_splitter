@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}404 Not Found - PDF Toolkit{% endblock %}
+{% block description %}This page couldn’t be found. Return to the homepage and explore our free PDF tools.{% endblock %}
+
+{% block extra_head %}
+  <link rel="canonical" href="https://pdfhub.org/404">
+  <meta name="robots" content="noindex">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "404 Not Found",
+      "description": "The requested page was not found on PDF Hub.",
+      "url": "https://pdfhub.org/404"
+    }
+  </script>
+{% endblock %}
+
+{% block content %}
+
+<div class="illustration mb-4">
+  <img src="{{ url_for('static', filename='404_astronaut.png') }}" alt="Lost Astronaut" style="max-width: 300px; animation: float 3s ease-in-out infinite;">
+</div>
+
+<h1 class="display-4">404 - Page Not Found</h1>
+<p class="lead mb-4">Oops! Looks like you’re lost in space. The page you’re looking for doesn’t exist.</p>
+<a href="/" class="btn btn-outline-primary">⬅ Back to Home</a>
+
+<style>
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+  }
+</style>
+
+{% endblock %}

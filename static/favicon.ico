@@ -1,0 +1,11 @@
+<svg width="200" height="50" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="100" fill="white"></rect>
+  <!-- Ikona PDF list -->
+  <rect x="10" y="10" width="60" height="80" rx="8" ry="8" fill="#E74C3C"></rect>
+  <polyline points="70,10 60,10 60,30 70,30" fill="white"></polyline>
+  <!-- Ikona wrench -->
+  <circle cx="80" cy="30" r="10" fill="#E74C3C"></circle>
+  <rect x="78" y="30" width="4" height="30" fill="#E74C3C" transform="rotate(-45 80 45)"></rect>
+  <!-- Besedilo -->
+  <text x="100" y="65" font-family="Poppins, Arial, sans-serif" font-size="40" fill="#E74C3C">PDF Toolkit</text>
+</svg>

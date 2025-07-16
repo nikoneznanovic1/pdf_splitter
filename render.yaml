@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: pdfhub
+    env: python
+    buildCommand: ""
+    startCommand: "gunicorn app:app"
+    runtime: python
+    plan: free
+    autoDeploy: true

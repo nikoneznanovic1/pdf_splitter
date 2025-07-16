@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Compress PDF - Free Online PDF Compressor | PDF Hub{% endblock %}
+{% block description %}Reduce the size of your PDF files online. Fast, secure and 100% free compression tool for PDF documents.{% endblock %}
+
+{% block extra_head %}
+  <link rel="canonical" href="https://pdfhub.org/compress-pdf">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Compress PDF",
+      "description": "Reduce the size of your PDF files online. Fast, secure and 100% free compression tool for PDF documents.",
+      "url": "https://pdfhub.org/compress-pdf"
+    }
+  </script>
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Compress PDF</h2>
+
+<form id="compressForm">
+  <input type="file" id="pdfFile" accept="application/pdf" class="form-control mb-3" required>
+  <button type="submit" id="submitBtn" class="btn btn-warning">Compress PDF</button>
+</form>
+
+<!-- Progress Bar -->
+<div class="progress my-4" style="height: 25px; display: none;" id="progressContainer">
+  <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+       role="progressbar" style="width: 0%">0%</div>
+</div>
+
+<p class="mt-4"><a href="/" class="text-decoration-none">⬅ Back to Home</a></p>
+
+<!-- AJAX Logic -->
+<script>
+  const form = document.getElementById('compressForm');
+  const fileInput = document.getElementById('pdfFile');
+  const progressContainer = document.getElementById('progressContainer');
+  const progressBar = document.getElementById('progressBar');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    submitBtn.disabled = true;
+    progressContainer.style.display = 'block';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/compress-pdf');
+
+    xhr.upload.onprogress = function(e) {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+        progressBar.style.width = percent + '%';
+        progressBar.textContent = percent + '%';
+      }
+    };
+
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        const blob = new Blob([xhr.response], { type: 'application/pdf' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'compressed.pdf';
+        link.click();
+      } else {
+        alert('Something went wrong.');
+      }
+      reset();
+    };
+
+    xhr.onerror = reset;
+    xhr.responseType = 'blob';
+
+    const formData = new FormData();
+    formData.append('pdf', file);
+    xhr.send(formData);
+
+    function reset() {
+      progressBar.style.width = '0%';
+      progressBar.textContent = '0%';
+      progressContainer.style.display = 'none';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+{% endblock %}
