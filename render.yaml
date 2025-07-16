@@ -1,22 +1,9 @@
 services:
   - type: web
     name: pdfhub
-    env: python
-    plan: free
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn app:app"
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
     envVars:
-      - key: FLASK_ENV
-        value: production
-    build:
-      aptPackages:
-        - libglib2.0-dev
-        - libcairo2-dev
-        - libpango1.0-dev
-        - libgdk-pixbuf2.0-dev
-        - libffi-dev
-        - libxml2-dev
-        - libxslt1-dev
-        - zlib1g-dev
-        - libjpeg-dev
-        - build-essential
+      - key: PYTHON_VERSION
+        value: 3.12.3
