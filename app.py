@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, send_from_directory
 from flask import Flask, render_template, request, redirect, url_for, flash
 from PyPDF2 import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
@@ -21,6 +21,10 @@ app = Flask(__name__)
 def redirect_to_www():
     if request.host == "pdfhub.org":
         return redirect("https://www.pdfhub.org" + request.full_path, code=301)
+
+@app.route('/google8049692bb0d0557a.html')
+def google_verify():
+    return send_from_directory('static', 'google8049692bb0d0557a.html')
 
 @app.route("/")
 def index():
