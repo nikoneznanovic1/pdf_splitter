@@ -17,6 +17,11 @@ TO_EMAIL = "info@pdfhub.org"  # kam naj grejo kontaktna sporočila
 
 app = Flask(__name__)
 
+@app.before_request
+def redirect_to_www():
+    if request.host == "pdfhub.org":
+        return redirect("https://www.pdfhub.org" + request.full_path, code=301)
+
 @app.route("/")
 def index():
     return render_template("index.html")
