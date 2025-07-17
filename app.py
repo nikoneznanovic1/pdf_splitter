@@ -23,15 +23,15 @@ def redirect_to_www():
         return redirect("https://www.pdfhub.org" + request.full_path, code=301)
 
 @app.route('/google8049692bb0d0557a.html')
-def google_verify():
+def google_verification():
     return send_from_directory('static', 'google8049692bb0d0557a.html')
 
 @app.route('/sitemap.xml')
-def google_verify():
+def sitemap():
     return send_from_directory('static', 'sitemap.xml')
 
 @app.route('/robots.txt')
-def google_verify():
+def robots():
     return send_from_directory('static', 'robots.txt')
 
 @app.route("/")
