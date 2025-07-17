@@ -1,41 +1,65 @@
 {% extends "base.html" %}
 
 {% block title %}Contact Us - PDF Hub{% endblock %}
-{% block description %}Have questions or feedback? Contact the PDF Hub team directly.{% endblock %}
+{% block description %}Have questions or feedback? Get in touch with the PDF Hub team using our contact form.{% endblock %}
+
+{% block extra_head %}
+  <link rel="canonical" href="https://www.pdfhub.org/contact">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "PDF Hub",
+        "url": "https://www.pdfhub.org",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "info@pdfhub.org",
+          "contactType": "Customer Support",
+          "areaServed": "Worldwide",
+          "availableLanguage": "English"
+        }
+      }
+    }
+  </script>
+{% endblock %}
 
 {% block content %}
 
-<h2 class="mb-4">Contact Us</h2>
+<div class="text-start mb-4">
+  <h2>Contact Us</h2>
+  <p>If you have any questions, suggestions, or issues using our tools, please fill out the form below. We usually respond within 24–48 hours.</p>
 
-<form id="contactForm" method="POST" action="/contact">
+  <p>Whether you're reporting a bug, requesting a feature, or just want to say hello — we’d love to hear from you!</p>
+
+  <ul>
+    <li>✅ Support available worldwide</li>
+    <li>✅ No login required</li>
+    <li>✅ Typical response time: 1–2 business days</li>
+  </ul>
+
+  <p>Looking for tools? Try <a href="/split-pdf">splitting</a> or <a href="/merge-pdf">merging</a> your PDFs in seconds.</p>
+</div>
+
+<form method="POST" action="/contact" class="text-start">
   <div class="mb-3">
-    <label for="name" class="form-label">Name</label>
-    <input type="text" class="form-control" name="name" required>
+    <label for="name" class="form-label">Your Name</label>
+    <input type="text" name="name" id="name" class="form-control" required>
   </div>
 
   <div class="mb-3">
-    <label for="email" class="form-label">Email</label>
-    <input type="email" class="form-control" name="email" required>
+    <label for="email" class="form-label">Your Email</label>
+    <input type="email" name="email" id="email" class="form-control" required>
   </div>
 
   <div class="mb-3">
-    <label for="subject" class="form-label">Subject</label>
-    <input type="text" class="form-control" name="subject" required>
-  </div>
-
-  <div class="mb-3">
-    <label for="message" class="form-label">Message</label>
-    <textarea class="form-control" name="message" rows="5" required></textarea>
+    <label for="message" class="form-label">Your Message</label>
+    <textarea name="message" id="message" class="form-control" rows="5" required></textarea>
   </div>
 
   <button type="submit" class="btn btn-primary">Send Message</button>
 </form>
-
-{% if success %}
-<div class="alert alert-success mt-4">Thank you! Your message has been sent successfully.</div>
-{% elif error %}
-<div class="alert alert-danger mt-4">Oops! Something went wrong. Please try again.</div>
-{% endif %}
 
 <p class="mt-4"><a href="/" class="text-decoration-none">⬅ Back to Home</a></p>
 

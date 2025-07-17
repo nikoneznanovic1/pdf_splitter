@@ -1,27 +1,48 @@
 {% extends "base.html" %}
 
-{% block title %}Merge PDF - Free Online PDF Merger | PDF Hub{% endblock %}
-{% block description %}Combine multiple PDF files into a single document with our free online PDF merger. Secure, fast, and easy to use.{% endblock %}
+{% block title %}Merge PDF - Combine PDF Files for Free | PDF Hub{% endblock %}
+{% block description %}Easily merge multiple PDF files into one document. Fast, free and secure online PDF combiner powered by PDFHub.org.{% endblock %}
 
 {% block extra_head %}
-  <link rel="canonical" href="https://pdfhub.org/merge-pdf">
+  <link rel="canonical" href="https://www.pdfhub.org/merge-pdf">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Merge PDF",
-      "description": "Combine multiple PDF files into a single document with our free online PDF merger. Secure, fast, and easy to use.",
-      "url": "https://pdfhub.org/merge-pdf"
+      "@type": "SoftwareApplication",
+      "name": "Merge PDF - PDFHub",
+      "operatingSystem": "All",
+      "applicationCategory": "UtilitiesApplication",
+      "url": "https://www.pdfhub.org/merge-pdf",
+      "description": "Merge multiple PDF files into one document. Free, secure and easy to use with PDFHub.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "EUR"
+      }
     }
   </script>
 {% endblock %}
 
 {% block content %}
 
-<h2 class="mb-4">Merge PDF</h2>
+<div class="text-start mb-4">
+  <p><strong>Need to combine multiple PDFs into one file?</strong> Our free online PDF merger tool makes it quick and effortless.</p>
+
+  <p>Whether you're putting together a multi-part report, combining invoices, or organizing scanned documents, PDFHub’s <strong>merge PDF tool</strong> is here to help. Upload your files, arrange them, and download your merged document in seconds – all within your browser.</p>
+
+  <ul>
+    <li>✅ Combine multiple PDFs into one file</li>
+    <li>✅ 100% free and works on any device</li>
+    <li>✅ Secure and temporary file handling</li>
+  </ul>
+
+  <p>Example use: You have a contract, offer and invoice in separate PDF files – upload them all and get one combined document ready to send.</p>
+
+  <p class="mt-3">Need to <a href="/split-pdf">split a PDF</a> before merging? We’ve got that too!</p>
+</div>
 
 <form id="mergeForm">
-  <input type="file" id="pdfFiles" accept="application/pdf" class="form-control mb-3" multiple required>
+  <input type="file" id="pdfFiles" accept="application/pdf" multiple class="form-control mb-3" required>
   <button type="submit" id="submitBtn" class="btn btn-primary">Merge PDF</button>
 </form>
 
@@ -64,7 +85,7 @@
       if (xhr.status === 200) {
         gtag('event', 'merge_pdf_completed', {
           event_category: 'PDF Tools',
-          event_label: 'Split PDF Success'
+          event_label: 'Merge PDF Success'
         });
 
         const blob = new Blob([xhr.response], { type: 'application/pdf' });
@@ -82,8 +103,8 @@
     xhr.responseType = 'blob';
 
     const formData = new FormData();
-    for (const file of files) {
-      formData.append('pdfs', file);
+    for (let i = 0; i < files.length; i++) {
+      formData.append('pdfs', files[i]);
     }
     xhr.send(formData);
 

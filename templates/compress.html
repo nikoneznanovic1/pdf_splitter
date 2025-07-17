@@ -1,24 +1,45 @@
 {% extends "base.html" %}
 
-{% block title %}Compress PDF - Free Online PDF Compressor | PDF Hub{% endblock %}
-{% block description %}Reduce the size of your PDF files online. Fast, secure and 100% free compression tool for PDF documents.{% endblock %}
+{% block title %}Compress PDF - Reduce PDF File Size Online | PDF Hub{% endblock %}
+{% block description %}Easily compress large PDF files without losing quality. Use PDFHub to reduce PDF file size online – fast, free and secure.{% endblock %}
 
 {% block extra_head %}
-  <link rel="canonical" href="https://pdfhub.org/compress-pdf">
+  <link rel="canonical" href="https://www.pdfhub.org/compress-pdf">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Compress PDF",
-      "description": "Reduce the size of your PDF files online. Fast, secure and 100% free compression tool for PDF documents.",
-      "url": "https://pdfhub.org/compress-pdf"
+      "@type": "SoftwareApplication",
+      "name": "Compress PDF - PDFHub",
+      "operatingSystem": "All",
+      "applicationCategory": "UtilitiesApplication",
+      "url": "https://www.pdfhub.org/compress-pdf",
+      "description": "Compress your PDF files online and reduce file size without losing quality. Free, secure and easy to use.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "EUR"
+      }
     }
   </script>
 {% endblock %}
 
 {% block content %}
 
-<h2 class="mb-4">Compress PDF</h2>
+<div class="text-start mb-4">
+  <p><strong>Is your PDF file too large to send or upload?</strong> Use our free online tool to compress PDF files quickly and effectively.</p>
+
+  <p>The <strong>PDF compression tool</strong> by PDFHub shrinks file sizes while preserving quality. Whether you're submitting a resume, sharing a report, or saving storage, this tool gets the job done – no software or signup needed.</p>
+
+  <ul>
+    <li>✅ Compress PDFs without compromising readability</li>
+    <li>✅ Upload and compress in seconds</li>
+    <li>✅ Works on all devices, completely free</li>
+  </ul>
+
+  <p>For instance, if you scanned a contract that’s 25 MB, simply upload it here and get a smaller version perfect for email or upload.</p>
+
+  <p class="mt-3">Need to <a href="/convert-pdf">convert your PDF to images</a> after compression? We’ve got you covered!</p>
+</div>
 
 <form id="compressForm">
   <input type="file" id="pdfFile" accept="application/pdf" class="form-control mb-3" required>
@@ -64,7 +85,7 @@
       if (xhr.status === 200) {
         gtag('event', 'compress_pdf_completed', {
           event_category: 'PDF Tools',
-          event_label: 'Split PDF Success'
+          event_label: 'Compress PDF Success'
         });
 
         const blob = new Blob([xhr.response], { type: 'application/pdf' });

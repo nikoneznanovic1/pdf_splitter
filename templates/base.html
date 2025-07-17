@@ -13,7 +13,7 @@
   <!-- Open Graph for social sharing -->
   <meta property="og:title" content="PDF Hub - Free Online PDF Tools" />
   <meta property="og:description" content="Split, merge, compress, convert and watermark PDFs with ease. 100% free and secure." />
-  <meta property="og:image" content="https://pdfhub.org/static/og-image.png" />
+  <meta property="og:image" content="https://pdfhub.org/static/og-image.webp" />
   <meta property="og:url" content="https://pdfhub.org/" />
   <meta property="og:type" content="website" />
 
@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="PDF Hub - Free Online PDF Tools" />
   <meta name="twitter:description" content="All-in-one PDF toolkit. 100% free and no signup." />
-  <meta name="twitter:image" content="https://pdfhub.org/static/og-image.png" />
+  <meta name="twitter:image" content="https://pdfhub.org/static/og-image.webp" />
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
@@ -61,6 +61,20 @@
     });
   </script>
 
+  <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "PDFHub",
+    "url": "https://www.pdfhub.org",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.pdfhub.org/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+    }
+    }
+  </script>
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZLH653Y98"></script>
     <script>
@@ -69,7 +83,9 @@
     gtag('js', new Date());
 
     gtag('config', 'G-ZZLH653Y98');
-</script>
+  </script>
+  
+  {% block extra_head %}{% endblock %}
 </head>
 
 <body class="bg-light">
@@ -78,7 +94,7 @@
     <!-- Logo / Title -->
     <header class="mb-4">
       <a href="/">
-        <img src="{{ url_for('static', filename='og-image.png') }}" 
+        <img src="{{ url_for('static', filename='og-image.webp') }}" 
              alt="PDF Hub Logo" 
              style="max-height: 100px; width: auto;" />
       </a>

@@ -1,24 +1,45 @@
 {% extends "base.html" %}
 
-{% block title %}Add Watermark to PDF - PDF Toolkit{% endblock %}
-{% block description %}Easily add custom watermark text to your PDF files. Free, secure and fast online PDF watermark tool.{% endblock %}
+{% block title %}Add Watermark to PDF - Free Online Tool | PDF Hub{% endblock %}
+{% block description %}Easily add watermark text to your PDF files online. Free, secure, and no signup required. Customize font, position, and more.{% endblock %}
 
 {% block extra_head %}
-  <link rel="canonical" href="https://pdfhub.org/watermark-pdf">
+  <link rel="canonical" href="https://www.pdfhub.org/watermark-pdf">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Add Watermark to PDF",
-      "description": "Easily add custom watermark text to your PDF files. Free, secure and fast online PDF watermark tool.",
-      "url": "https://pdfhub.org/watermark-pdf"
+      "@type": "SoftwareApplication",
+      "name": "Watermark PDF - PDFHub",
+      "operatingSystem": "All",
+      "applicationCategory": "UtilitiesApplication",
+      "url": "https://www.pdfhub.org/watermark-pdf",
+      "description": "Add watermark text to your PDF files easily. This online tool lets you place customized watermark text quickly and securely.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "EUR"
+      }
     }
   </script>
 {% endblock %}
 
 {% block content %}
 
-<h2 class="mb-4">Watermark PDF</h2>
+<div class="text-start mb-4">
+  <p><strong>Need to protect or brand your PDFs?</strong> Use our free online tool to add watermark text to any PDF file. Great for drafts, internal use, or sharing documents with your brand identity.</p>
+
+  <p>Just upload your file, enter the text, and download a watermarked version instantly. No account needed, and no annoying watermarks from us – only the one you choose!</p>
+
+  <ul>
+    <li>✅ Add watermark text across all pages</li>
+    <li>✅ Fast, secure, and 100% free to use</li>
+    <li>✅ Runs directly in your browser</li>
+  </ul>
+
+  <p>Example: Add a watermark like "CONFIDENTIAL" or your company name before sending a PDF to clients.</p>
+
+  <p class="mt-3">Need to <a href="/compress-pdf">compress</a> or <a href="/convert-pdf">convert</a> your watermarked file? Continue with our other tools!</p>
+</div>
 
 <form id="watermarkForm">
   <input type="file" id="pdfFile" accept="application/pdf" class="form-control mb-3" required>
@@ -67,7 +88,7 @@
       if (xhr.status === 200) {
         gtag('event', 'watermark_pdf_completed', {
           event_category: 'PDF Tools',
-          event_label: 'Split PDF Success'
+          event_label: 'Watermark PDF Success'
         });
 
         const blob = new Blob([xhr.response], { type: 'application/pdf' });
