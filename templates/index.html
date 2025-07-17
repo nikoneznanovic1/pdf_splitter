@@ -68,4 +68,48 @@
 
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Split PDF
+    document.querySelector('a[href="/split-pdf"]').addEventListener('click', function () {
+      gtag('event', 'split_pdf_click', {
+        event_category: 'PDF Tools',
+        event_label: 'Split PDF from homepage'
+      });
+    });
+
+    // Merge PDF
+    document.querySelector('a[href="/merge-pdf"]').addEventListener('click', function () {
+      gtag('event', 'merge_pdf_click', {
+        event_category: 'PDF Tools',
+        event_label: 'Merge PDF from homepage'
+      });
+    });
+
+    // Compress PDF
+    document.querySelector('a[href="/compress-pdf"]').addEventListener('click', function () {
+      gtag('event', 'compress_pdf_click', {
+        event_category: 'PDF Tools',
+        event_label: 'Compress PDF from homepage'
+      });
+    });
+
+    // Convert PDF
+    document.querySelector('a[href="/convert-pdf"]').addEventListener('click', function () {
+      gtag('event', 'convert_pdf_click', {
+        event_category: 'PDF Tools',
+        event_label: 'Convert PDF from homepage'
+      });
+    });
+
+    // Watermark PDF
+    document.querySelector('a[href="/watermark-pdf"]').addEventListener('click', function () {
+      gtag('event', 'watermark_pdf_click', {
+        event_category: 'PDF Tools',
+        event_label: 'Watermark PDF from homepage'
+      });
+    });
+  });
+</script>
+
 {% endblock %}
