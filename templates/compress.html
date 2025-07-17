@@ -62,6 +62,11 @@
 
     xhr.onload = function() {
       if (xhr.status === 200) {
+        gtag('event', 'compress_pdf_completed', {
+          event_category: 'PDF Tools',
+          event_label: 'Split PDF Success'
+        });
+
         const blob = new Blob([xhr.response], { type: 'application/pdf' });
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
