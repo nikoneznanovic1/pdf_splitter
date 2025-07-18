@@ -13,6 +13,10 @@
       "name": "404 Not Found",
       "description": "The requested page was not found on PDF Hub.",
       "url": "https://pdfhub.org/404"
+      "isPartOf": {
+      "@type": "WebSite",
+      "url": "https://pdfhub.org"
+        }
     }
   </script>
 {% endblock %}
@@ -20,7 +24,7 @@
 {% block content %}
 
 <div class="illustration mb-4">
-  <img src="{{ url_for('static', filename='404_astronaut.webp') }}" alt="Lost Astronaut" loading="lazy" style="max-width: 300px; animation: float 3s ease-in-out infinite;">
+  <img src="{{ url_for('static', filename='404_astronaut.webp') }}" alt="Lost Astronaut" width="400" height="400" loading="lazy" class="img-404" style="animation: float 3s ease-in-out infinite;">
 </div>
 
 <h1 class="display-4">404 - Page Not Found</h1>
