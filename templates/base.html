@@ -31,17 +31,89 @@
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 
   <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
   <style>
     body { font-family: 'Poppins', sans-serif; }
   </style>
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXX"
-          crossorigin="anonymous"></script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZLH653Y98"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZZLH653Y98');
+  </script>
 
-  <!-- Cookie Consent -->
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "PDFHub",
+      "url": "https://www.pdfhub.org",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.pdfhub.org/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body class="bg-light">
+  <div class="container py-5 text-center">
+    
+    <!-- Logo / Title -->
+    <header class="mb-4">
+      <a href="/">
+        <img src="{{ url_for('static', filename='og-image.webp') }}"
+             loading="lazy" 
+             alt="PDF Hub Logo" 
+             style="max-height: 100px; width: auto;" />
+      </a>
+    </header>
+
+    <!-- Optional Google Ad (nad vsebino) -->
+    <div class="my-4">
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center;"
+           data-ad-client="ca-pub-XXXXXXXXXXXX"
+           data-ad-slot="YYYYYYYYYYYY"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Optional Google Ad (pod vsebino) -->
+    <div class="my-4">
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center;"
+           data-ad-client="ca-pub-XXXXXXXXXXXX"
+           data-ad-slot="ZZZZZZZZZZZZ"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-5 text-muted small">
+      &copy; 2025 PDF Hub |
+      <a href="/privacy">Privacy Policy</a> |
+      <a href="/terms">Terms of Service</a>
+    </footer>
+  </div>
+
+  <!-- Deferred Scripts -->
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
   <script>
     window.addEventListener("load", function () {
@@ -60,85 +132,10 @@
       });
     });
   </script>
-
-  <script type="application/ld+json">
-    {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "PDFHub",
-    "url": "https://www.pdfhub.org",
-    "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://www.pdfhub.org/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-    }
-    }
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXX"
+          crossorigin="anonymous"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZLH653Y98"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-ZZLH653Y98');
-  </script>
-  
-  {% block extra_head %}{% endblock %}
-</head>
-
-<body class="bg-light">
-  <div class="container py-5 text-center">
-    
-    <!-- Logo / Title -->
-    <header class="mb-4">
-      <a href="/">
-        <img src="{{ url_for('static', filename='og-image.webp') }}" 
-             alt="PDF Hub Logo" 
-             style="max-height: 100px; width: auto;" />
-      </a>
-    </header>
-
-    <!-- Optional Google Ad (nad vsebino) -->
-    <div class="my-4">
-      <ins class="adsbygoogle"
-           style="display:block; text-align:center;"
-           data-ad-client="ca-pub-XXXXXXXXXXXX"
-           data-ad-slot="YYYYYYYYYYYY"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
-
-    <!-- Main Content -->
-    <main>
-      {% block content %}{% endblock %}
-    </main>
-
-    <!-- Optional Google Ad (pod vsebino) -->
-    <div class="my-4">
-      <ins class="adsbygoogle"
-           style="display:block; text-align:center;"
-           data-ad-client="ca-pub-XXXXXXXXXXXX"
-           data-ad-slot="ZZZZZZZZZZZZ"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
-
-    <!-- Footer -->
-    <footer class="mt-5 text-muted small">
-      &copy; 2025 PDF Hub |
-      <a href="/privacy">Privacy Policy</a> |
-      <a href="/terms">Terms of Service</a>
-    </footer>
-  </div>
-
-  <!-- Optional Bootstrap Bundle (JS + Popper) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>
