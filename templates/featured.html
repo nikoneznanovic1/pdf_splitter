@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="max-width: 960px; margin: 0 auto; padding: 40px 20px;">
+  <h1 style="color: #1f3b8b; font-size: 2.5em; margin-bottom: 20px;">Featured On</h1>
+
+  <p style="font-size: 1.1em; margin-bottom: 30px;">
+    We are proud to be recognized and featured on trusted content platforms worldwide. Here are just a few places where PDFHub has appeared:
+  </p>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+    <div style="background: white; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); flex: 1 1 240px; padding: 20px; text-align: center;">
+      <img src="{{ url_for('static', filename='images/scribd.webp') }}" alt="Scribd" width="100">
+      <a href="https://www.scribd.com/document/891437647/Top-5-Free-PDF-Tools-in-2025-Infographic-Comparison" target="_blank">View on Scribd</a>
+    </div>
+
+    <div style="background: white; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); flex: 1 1 240px; padding: 20px; text-align: center;">
+      <img src="{{ url_for('static', filename='images/issuu.webp') }}" alt="Issuu" width="100">
+      <a href="https://issuu.com/pdfhub_org/docs/top_5_free_pdf_tools_in_2025_infographic_compari" target="_blank">View on Issuu</a>
+    </div>
+
+    <div style="background: white; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); flex: 1 1 240px; padding: 20px; text-align: center;">
+      <img src="{{ url_for('static', filename='images/pdfhost.webp') }}" alt="PDFHost" width="100">
+      <a href="https://pdfhost.io/v/e8QM3MPZhy_Top_5_Free_PDF_Tools_in_2025_–_Infographic_Comparison" target="_blank">View on PDFHost</a>
+    </div>
+
+    <div style="background: white; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); flex: 1 1 240px; padding: 20px; text-align: center;">
+      <img src="{{ url_for('static', filename='images/slideshare.webp') }}" alt="SlideShare" width="100">
+      <a href="https://www.slideshare.net/slideshow/top-5-free-pdf-tools-in-2025-infographic-comparison/281860294" target="_blank">View on SlideShare</a>
+    </div>
+
+    <div style="background: white; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); flex: 1 1 240px; padding: 20px; text-align: center;">
+      <img src="{{ url_for('static', filename='images/mediafire.webp') }}" alt="Mediafire" width="100">
+      <a href="https://www.mediafire.com/file/thwsfk9d6vchtig/Top_5_Free_PDF_Tools_in_2025_%25E2%2580%2593_Infographic_Comparison.pdf/file" target="_blank">View on Mediafire</a>
+    </div>
+  </div>
+
+  <p style="margin-top: 40px; font-size: 0.95em; color: #555;">
+    Want to feature PDFHub or collaborate? <a href="/contact">Get in touch here</a>.
+  </p>
+</div>
+{% endblock %}
