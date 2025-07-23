@@ -58,6 +58,10 @@ def convert_pdf_page():
 def watermark_pdf_page():
     return render_template("watermark.html")
 
+@app.route('/featured')
+def featured():
+    return render_template('featured.html')
+
 # ------------------- API ROUTES -------------------
 
 @app.route("/api/split-pdf", methods=["POST"])
