@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, send_file, send_from_directory
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, send_file, send_from_directory, redirect, Response, url_for, flash
 from PyPDF2 import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
@@ -8,6 +7,10 @@ import fitz  # PyMuPDF
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from datetime import date
+from tools import tools_bp  # Uvozimo blueprint tools.py
+
+from routes_config import get_all_urls  # <- uvoz konfiguracije iz routes_config.py
 
 SMTP_SERVER = "mail.pdfhub.org"  # npr. mail.neoserv.si ali smtp.gmail.com
 SMTP_PORT = 587  # ali 465 za SSL
@@ -16,6 +19,8 @@ SMTP_PASSWORD = "neznanovski111"  # geslo za SMTP ali app password
 TO_EMAIL = "info@pdfhub.org"  # kam naj grejo kontaktna sporočila
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50 MB
+app.register_blueprint(tools_bp)  # Registracija orodij
 
 @app.before_request
 def redirect_to_www():
@@ -25,10 +30,6 @@ def redirect_to_www():
 @app.route('/google8049692bb0d0557a.html')
 def google_verification():
     return send_from_directory('static', 'google8049692bb0d0557a.html')
-
-@app.route('/sitemap.xml')
-def sitemap():
-    return send_from_directory('static', 'sitemap.xml')
 
 @app.route('/robots.txt')
 def robots():
@@ -193,6 +194,56 @@ def privacy():
 @app.route("/terms")
 def terms():
     return render_template("terms.html")
+
+@app.route('/blog')
+def blog_index():
+    return render_template('blog/index.html')
+
+@app.route('/blog/how-to-merge-pdfs')
+def blog_merge_pdfs():
+    return render_template('blog/how_to_merge_pdfs.html')
+
+@app.route('/blog/top-free-pdf-editors')
+def blog_pdf_editors():
+    return render_template('blog/top_free_pdf_editors.html')
+
+@app.route('/blog/how-to-compress-pdfs')
+def blog_compress_pdfs():
+    return render_template('blog/how_to_compress_pdfs.html')
+
+@app.route('/blog/how-to-split-pdf-online-guide')
+def blog_split_pdf():
+    return render_template('blog/how_to_split_pdf_online.html')
+
+@app.route('/blog/best-ai-pdf-tools-2025')
+def blog_ai_pdf_tools():
+    return render_template('blog/best_ai_pdf_tools_2025.html')
+
+@app.route("/sitemap.xml", methods=["GET"])
+def sitemap():
+    today = date.today().isoformat()
+    base = request.url_root.rstrip("/")
+
+    urls = get_all_urls()
+
+    xml_parts = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    ]
+
+    for u in urls:
+        loc = f"{base}{u['path']}"
+        # home (/) naj ostane z zaključenim /, ostalo brez trailing /
+        loc = loc if u["path"] == "/" else loc.rstrip("/")
+        xml_parts.append("  <url>")
+        xml_parts.append(f"    <loc>{loc}</loc>")
+        xml_parts.append(f"    <lastmod>{today}</lastmod>")
+        xml_parts.append(f"    <changefreq>{u['changefreq']}</changefreq>")
+        xml_parts.append(f"    <priority>{u['priority']}</priority>")
+        xml_parts.append("  </url>")
+
+    xml_parts.append("</urlset>")
+    return Response("\n".join(xml_parts), mimetype="application/xml")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
