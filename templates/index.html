@@ -66,6 +66,28 @@
     </div>
   </div>
 
+  <!-- Word to PDF -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Word to PDF</h5>
+        <p class="card-text">Convert .docx files to PDF instantly.</p>
+        <a href="/word-to-pdf" class="btn btn-primary">Open tool</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF to Word -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">PDF to Word</h5>
+        <p class="card-text">Turn PDFs into editable .docx files.</p>
+        <a href="/pdf-to-word" class="btn btn-primary">Open tool</a>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -110,6 +132,20 @@
       });
     });
   });
+  // Word to PDF
+    document.querySelector('a[href="/word-to-pdf"]').addEventListener('click', function () {
+      gtag('event', 'word_to_pdf_click', {
+        event_category: 'PDF Tools',
+        event_label: 'Word To PDF from homepage'
+      });
+    });
+  // PDF to Word
+    document.querySelector('a[href="/pdf-to-word"]').addEventListener('click', function () {
+      gtag('event', 'pdf_to_word_click', {
+        event_category: 'PDF Tools',
+        event_label: 'PDF To Word from homepage'
+      });
+    });
 </script>
 
 {% endblock %}

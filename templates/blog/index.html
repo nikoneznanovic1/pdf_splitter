@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5 text-start">
+  <h1 class="text-primary fw-bold mb-4 text-center">PDFHub Blog</h1>
+  <p class="lead text-center mb-5">
+    Tips, tutorials, and guides to help you work smarter with PDFs. Free, practical, always up to date.
+  </p>
+
+  <div class="row g-4">
+
+    <!-- How to Merge PDFs -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <img
+          src="{{ url_for('static', filename='images/blog/index/how-to-merge-pdfs-online-guide-2025.webp') }}"
+          class="card-img-top"
+          alt="How to Merge PDFs Online – Free 2025 Guide">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">How to Merge PDFs Online – Free 2025 Guide</h5>
+          <p class="card-text small text-muted">
+            Step-by-step tutorial to combine multiple PDFs quickly and for free.
+          </p>
+          <a href="/blog/how-to-merge-pdfs" class="btn btn-primary mt-auto">Read More</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top 5 Free PDF Editors -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <img
+          src="{{ url_for('static', filename='images/blog/index/top-5-free-pdf-editors-2025.webp') }}"
+          class="card-img-top"
+          alt="Top 5 Free PDF Editors You Should Try in 2025">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Top 5 Free PDF Editors You Should Try in 2025</h5>
+          <p class="card-text small text-muted">
+            Compare the best free PDF editors and pick the right one for your workflow.
+          </p>
+          <a href="/blog/top-free-pdf-editors" class="btn btn-primary mt-auto">Read More</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- How to Compress PDFs -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <img
+          src="{{ url_for('static', filename='images/blog/index/how-to-compress-pdf-without-losing-quality.webp') }}"
+          class="card-img-top"
+          alt="How to Compress PDFs Without Losing Quality">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">How to Compress PDFs Without Losing Quality</h5>
+          <p class="card-text small text-muted">
+            Reduce PDF size while keeping everything sharp and readable.
+          </p>
+          <a href="/blog/how-to-compress-pdfs" class="btn btn-primary mt-auto">Read More</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- How to Split PDF Online -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <img
+          src="{{ url_for('static', filename='images/blog/index/how-to-split-pdf-online-guide.webp') }}"
+          class="card-img-top"
+          alt="How to Split a PDF Online – Free Guide 2025">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">How to Split a PDF Online – Free Guide 2025</h5>
+          <p class="card-text small text-muted">
+            Extract pages or ranges from a PDF in seconds – no software needed.
+          </p>
+          <a href="/blog/how-to-split-pdf-online-guide" class="btn btn-primary mt-auto">Read More</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 Best AI PDF Tools in 2025 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <img
+          src="{{ url_for('static', filename='images/blog/index/best-ai-pdf-tools-2025.webp') }}"
+          class="card-img-top"
+          alt="10 Best AI PDF Tools in 2025">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">10 Best AI PDF Tools in 2025</h5>
+          <p class="card-text small text-muted">
+            AI is changing how we edit, analyze, and summarize PDFs. Here are the best tools.
+          </p>
+          <a href="/blog/best-ai-pdf-tools-2025" class="btn btn-primary mt-auto">Read More</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<style>
+  .tool-hero { max-width: 780px; margin: 0 auto; }
+  .dropzone {
+    border: 2px dashed #cbd5e1; border-radius: 12px; background: #fff;
+    padding: 40px 20px; text-align: center; cursor: pointer;
+    transition: border-color .2s, background .2s;
+  }
+  .dropzone.dragover { border-color: #0d6efd; background: #f0f7ff; }
+  .hidden { display: none !important; }
+  .file-name { word-break: break-all; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5 tool-hero text-start">
+  <h1 class="text-primary fw-bold mb-3 text-center">PDF to Word Converter</h1>
+  <p class="lead text-center mb-4">
+    Convert your <strong>PDF</strong> files to editable <strong>.docx</strong> documents. Free, fast & secure — no signup.
+  </p>
+
+  <form id="p2w-form" class="mb-4" enctype="multipart/form-data" novalidate>
+    <input type="file" id="file-input" name="file" accept=".pdf" class="d-none" required>
+
+    <!-- Dropzone -->
+    <div id="dropzone" class="dropzone">
+      <div class="mb-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-filetype-pdf text-primary" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM9.5 3H4a1 1 0 0 0-1 1v10.9a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5h-3.5a1 1 0 0 1-1-1V3Z"/>
+          <path d="M4.892 13.311c.06 0 .108-.02.143-.06.035-.041.053-.1.053-.178v-.27h.287v.27c0 .137-.038.243-.114.318-.076.075-.182.113-.318.113-.136 0-.242-.038-.318-.113-.076-.075-.114-.181-.114-.318v-.555c0-.137.038-.243.114-.318.076-.075.182-.113.318-.113.136 0 .242.038.318.113.076.075.114.181.114.318v.138h-.287v-.138c0-.078-.018-.137-.053-.178a.19.19 0 0 0-.143-.06.19.19 0 0 0-.143.06c-.035.041-.053.1-.053.178v.555c0 .078.018.137.053.178.035.041.083.06.143.06Zm1.28-.02H5.94v-1.112h.232v.902h.502v.21Zm.513 0h-.232v-1.112h.232v1.112Zm.495 0h-.232v-.456h-.27v.456h-.232v-1.112h.232v.446h.27v-.446h.232v1.112Z"/>
+        </svg>
+      </div>
+      <p class="mb-2 fw-semibold">Drag & drop your PDF here</p>
+      <p class="text-muted small mb-3">or click to browse</p>
+      <button type="button" id="choose-file-btn" class="btn btn-outline-primary btn-sm">Choose file</button>
+      <div id="file-meta" class="mt-3 small text-muted d-none">
+        <span class="file-name"></span>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div id="progress-wrapper" class="mt-4 hidden">
+      <div class="d-flex justify-content-between mb-1">
+        <span class="small text-muted">Uploading & converting…</span>
+        <span class="small text-muted" id="progress-percent">0%</span>
+      </div>
+      <div class="progress">
+        <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+             style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="text-center mt-4">
+      <button id="convert-btn" type="submit" class="btn btn-primary btn-lg" disabled>Convert to DOCX</button>
+      <button id="reset-btn" type="button" class="btn btn-link text-muted d-none">Reset / Convert another file</button>
+    </div>
+
+    <!-- Status -->
+    <div id="status" class="mt-3 small"></div>
+  </form>
+
+  <hr class="my-5">
+
+  <section class="mt-4">
+    <h2 class="h4 fw-bold">How it works</h2>
+    <ol>
+      <li>Select your <strong>PDF</strong> file.</li>
+      <li>Click <strong>Convert to DOCX</strong>.</li>
+      <li>Download your editable Word document.</li>
+    </ol>
+
+    <h3 class="h5 mt-4">Why use PDFHub PDF to Word?</h3>
+    <ul>
+      <li>No registration required</li>
+      <li>Fast & secure conversion</li>
+      <li>Editable .docx output</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+(function () {
+  const form = document.getElementById('p2w-form');
+  const fileInput = document.getElementById('file-input');
+  const dropzone = document.getElementById('dropzone');
+  const chooseBtn = document.getElementById('choose-file-btn');
+  const convertBtn = document.getElementById('convert-btn');
+  const resetBtn = document.getElementById('reset-btn');
+  const fileMeta = document.getElementById('file-meta');
+  const fileNameSpan = fileMeta.querySelector('.file-name');
+  const progressWrapper = document.getElementById('progress-wrapper');
+  const progressBar = document.getElementById('progress-bar');
+  const progressPercent = document.getElementById('progress-percent');
+  const statusBox = document.getElementById('status');
+
+  const MAX_SIZE = 100; // MB
+
+  // Global prevent default for drag/drop
+  ['dragenter','dragover','dragleave','drop'].forEach(evtName => {
+    window.addEventListener(evtName, e => { e.preventDefault(); e.stopPropagation(); }, false);
+    document.addEventListener(evtName, e => { e.preventDefault(); e.stopPropagation(); }, false);
+  });
+
+  function humanSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024*1024)).toFixed(1) + ' MB';
+  }
+
+  function resetUI() {
+    fileInput.value = '';
+    fileMeta.classList.add('d-none');
+    fileNameSpan.textContent = '';
+    convertBtn.disabled = true;
+    progressWrapper.classList.add('hidden');
+    progressBar.style.width = '0%';
+    progressBar.setAttribute('aria-valuenow', '0');
+    progressPercent.textContent = '0%';
+    statusBox.innerHTML = '';
+    resetBtn.classList.add('d-none');
+  }
+
+  function setStatus(msg, type = 'info') {
+    const color = type === 'error' ? 'text-danger' : 'text-muted';
+    statusBox.innerHTML = `<span class="${color}">${msg}</span>`;
+  }
+
+  // Choose file
+  chooseBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    fileInput.click();
+  });
+
+  // Dropzone
+  dropzone.addEventListener('dragenter', () => {
+    dropzone.classList.add('dragover');
+  });
+
+  dropzone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dropzone.classList.add('dragover');
+  });
+
+  dropzone.addEventListener('dragleave', (e) => {
+    if (e.target === dropzone) dropzone.classList.remove('dragover');
+  });
+
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dropzone.classList.remove('dragover');
+    const files = e.dataTransfer?.files;
+    if (files && files.length) {
+      handleFile(files[0]);
+    } else {
+      setStatus('No file detected in drop.', 'error');
+    }
+  });
+
+  // File input
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files && e.target.files.length) {
+      handleFile(e.target.files[0]);
+    }
+  });
+
+  function handleFile(file) {
+    const ext = file.name.toLowerCase().split('.').pop();
+    if (ext !== 'pdf') {
+      setStatus('Only .pdf files are supported.', 'error');
+      convertBtn.disabled = true;
+      return;
+    }
+    if (file.size > MAX_SIZE * 1024 * 1024) {
+      setStatus(`File too large. Max allowed size is ${MAX_SIZE} MB.`, 'error');
+      convertBtn.disabled = true;
+      return;
+    }
+    setStatus('');
+    fileNameSpan.textContent = `${file.name} (${humanSize(file.size)})`;
+    fileMeta.classList.remove('d-none');
+    convertBtn.disabled = false;
+  }
+
+  // Submit
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!fileInput.files.length) {
+      setStatus('Please select a PDF file first.', 'error');
+      return;
+    }
+
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    progressWrapper.classList.remove('hidden');
+    convertBtn.disabled = true;
+    setStatus('Uploading & converting…');
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/pdf-to-word', true);
+    xhr.responseType = 'blob';
+
+    xhr.upload.onprogress = function (evt) {
+      if (evt.lengthComputable) {
+        const percent = Math.round((evt.loaded / evt.total) * 100);
+        progressBar.style.width = percent + '%';
+        progressBar.setAttribute('aria-valuenow', percent);
+        progressPercent.textContent = percent + '%';
+      }
+    };
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        const blob = xhr.response;
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const suggestedName = (file.name.replace(/\.pdf$/i, '') || 'converted') + '.docx';
+        a.href = url;
+        a.download = suggestedName;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+
+        setStatus('Done! Your DOCX has been downloaded.');
+        resetBtn.classList.remove('d-none');
+      } else {
+        setStatus('Conversion failed. Please try again.', 'error');
+        convertBtn.disabled = false;
+      }
+    };
+
+    xhr.onerror = function () {
+      setStatus('Network error. Please try again.', 'error');
+      convertBtn.disabled = false;
+    };
+
+    xhr.send(formData);
+  });
+
+  resetBtn.addEventListener('click', resetUI);
+})();
+</script>
+{% endblock %}

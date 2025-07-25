@@ -1,4 +1,12 @@
+# robots.txt for PDFHub
+
 User-agent: *
-Disallow:
 Allow: /
-Sitemap: https://www.pdfhub.org/sitemap.xml
+
+# Disallow admin or dev sections (če obstajajo)
+Disallow: /admin/
+Disallow: /test/
+Disallow: /dev/
+
+# Sitemap location
+Sitemap: https://pdfhub.org/sitemap.xml

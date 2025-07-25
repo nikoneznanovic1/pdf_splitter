@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<style>
+  .tool-hero { max-width: 780px; margin: 0 auto; }
+  .dropzone {
+    border: 2px dashed #cbd5e1; border-radius: 12px; background: #fff;
+    padding: 40px 20px; text-align: center; cursor: pointer;
+    transition: border-color .2s, background .2s;
+  }
+  .dropzone.dragover { border-color: #0d6efd; background: #f0f7ff; }
+  .hidden { display: none !important; }
+  .file-name { word-break: break-all; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5 tool-hero text-start">
+  <h1 class="text-primary fw-bold mb-3 text-center">Word to PDF Converter</h1>
+  <p class="lead text-center mb-4">
+    Convert your <strong>.docx</strong> files to <strong>PDF</strong> online. Free, fast & secure — no signup.
+  </p>
+
+  <form id="w2p-form" class="mb-4" enctype="multipart/form-data" novalidate>
+    <input type="file" id="file-input" name="file" accept=".docx" class="d-none" required>
+
+    <!-- Dropzone -->
+    <div id="dropzone" class="dropzone">
+      <div class="mb-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-file-earmark-word text-primary" viewBox="0 0 16 16">
+          <path d="M5.5 6.5A.5.5 0 0 1 6 6h.91a.5.5 0 0 1 .48.36l.66 2.35.66-2.35a.5.5 0 0 1 .48-.36H10a.5.5 0 0 1 .49.4l.64 3.21.65-3.2a.5.5 0 0 1 .49-.41h.91a.5.5 0 0 1 .49.5v.01L12.8 11h-.96a.5.5 0 0 1-.49-.4l-.61-3.04-.66 3.04a.5.5 0 0 1-.49.4h-.78a.5.5 0 0 1-.49-.4l-.66-3.04-.61 3.04a.5.5 0 0 1-.49.4h-.96L5.01 7.01v-.01a.5.5 0 0 1 .49-.5z"/>
+          <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zM9.5 3H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5h-3.5a1 1 0 0 1-1-1V3z"/>
+        </svg>
+      </div>
+      <p class="mb-2 fw-semibold">Drag & drop your .docx file here</p>
+      <p class="text-muted small mb-3">or click to browse</p>
+      <button type="button" id="choose-file-btn" class="btn btn-outline-primary btn-sm">Choose file</button>
+      <div id="file-meta" class="mt-3 small text-muted d-none">
+        <span class="file-name"></span>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div id="progress-wrapper" class="mt-4 hidden">
+      <div class="d-flex justify-content-between mb-1">
+        <span class="small text-muted">Uploading & converting…</span>
+        <span class="small text-muted" id="progress-percent">0%</span>
+      </div>
+      <div class="progress">
+        <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+             style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="text-center mt-4">
+      <button id="convert-btn" type="submit" class="btn btn-primary btn-lg" disabled>Convert to PDF</button>
+      <button id="reset-btn" type="button" class="btn btn-link text-muted d-none">Reset / Convert another file</button>
+    </div>
+
+    <!-- Status -->
+    <div id="status" class="mt-3 small"></div>
+  </form>
+
+  <hr class="my-5">
+
+  <section class="mt-4">
+    <h2 class="h4 fw-bold">How it works</h2>
+    <ol>
+      <li>Select your <strong>.docx</strong> file.</li>
+      <li>Click <strong>Convert to PDF</strong>.</li>
+      <li>Download your converted PDF.</li>
+    </ol>
+
+  <h3 class="h5 mt-4">Why use PDFHub Word to PDF?</h3>
+    <ul>
+      <li>No registration required</li>
+      <li>Fast & secure conversion</li>
+      <li>Perfect formatting preserved</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+(function () {
+  const form = document.getElementById('w2p-form');
+  const fileInput = document.getElementById('file-input');
+  const dropzone = document.getElementById('dropzone');
+  const chooseBtn = document.getElementById('choose-file-btn');
+  const convertBtn = document.getElementById('convert-btn');
+  const resetBtn = document.getElementById('reset-btn');
+  const fileMeta = document.getElementById('file-meta');
+  const fileNameSpan = fileMeta.querySelector('.file-name');
+  const progressWrapper = document.getElementById('progress-wrapper');
+  const progressBar = document.getElementById('progress-bar');
+  const progressPercent = document.getElementById('progress-percent');
+  const statusBox = document.getElementById('status');
+
+  const MAX_SIZE = 100; // MB
+
+  // global prevent default for DnD
+  ['dragenter','dragover','dragleave','drop'].forEach(evtName => {
+    window.addEventListener(evtName, e => { e.preventDefault(); e.stopPropagation(); }, false);
+    document.addEventListener(evtName, e => { e.preventDefault(); e.stopPropagation(); }, false);
+  });
+
+  function humanSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024*1024)).toFixed(1) + ' MB';
+  }
+
+  function resetUI() {
+    fileInput.value = '';
+    fileMeta.classList.add('d-none');
+    fileNameSpan.textContent = '';
+    convertBtn.disabled = true;
+    progressWrapper.classList.add('hidden');
+    progressBar.style.width = '0%';
+    progressBar.setAttribute('aria-valuenow', '0');
+    progressPercent.textContent = '0%';
+    statusBox.innerHTML = '';
+    resetBtn.classList.add('d-none');
+  }
+
+  function setStatus(msg, type = 'info') {
+    const color = type === 'error' ? 'text-danger' : 'text-muted';
+    statusBox.innerHTML = `<span class="${color}">${msg}</span>`;
+  }
+
+  // Choose file
+  chooseBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    fileInput.click();
+  });
+
+  // Dropzone
+  dropzone.addEventListener('dragenter', () => {
+    dropzone.classList.add('dragover');
+  });
+
+  dropzone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dropzone.classList.add('dragover');
+  });
+
+  dropzone.addEventListener('dragleave', (e) => {
+    if (e.target === dropzone) dropzone.classList.remove('dragover');
+  });
+
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dropzone.classList.remove('dragover');
+    const files = e.dataTransfer?.files;
+    if (files && files.length) {
+      handleFile(files[0]);
+    } else {
+      setStatus('No file detected in drop.', 'error');
+    }
+  });
+
+  // File input
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files && e.target.files.length) {
+      handleFile(e.target.files[0]);
+    }
+  });
+
+  function handleFile(file) {
+    const ext = file.name.toLowerCase().split('.').pop();
+    if (ext !== 'docx') {
+      setStatus('Only .docx files are supported.', 'error');
+      convertBtn.disabled = true;
+      return;
+    }
+    if (file.size > MAX_SIZE * 1024 * 1024) {
+      setStatus(`File too large. Max allowed size is ${MAX_SIZE} MB.`, 'error');
+      convertBtn.disabled = true;
+      return;
+    }
+    setStatus('');
+    fileNameSpan.textContent = `${file.name} (${humanSize(file.size)})`;
+    fileMeta.classList.remove('d-none');
+    convertBtn.disabled = false;
+  }
+
+  // Submit
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!fileInput.files.length) {
+      setStatus('Please select a .docx file first.', 'error');
+      return;
+    }
+
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    progressWrapper.classList.remove('hidden');
+    convertBtn.disabled = true;
+    setStatus('Uploading & converting…');
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/word-to-pdf', true);
+    xhr.responseType = 'blob';
+
+    xhr.upload.onprogress = function (evt) {
+      if (evt.lengthComputable) {
+        const percent = Math.round((evt.loaded / evt.total) * 100);
+        progressBar.style.width = percent + '%';
+        progressBar.setAttribute('aria-valuenow', percent);
+        progressPercent.textContent = percent + '%';
+      }
+    };
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        const blob = xhr.response;
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const suggestedName = (file.name.replace(/\.docx$/i, '') || 'converted') + '.pdf';
+        a.href = url;
+        a.download = suggestedName;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+
+        setStatus('Done! Your PDF has been downloaded.');
+        resetBtn.classList.remove('d-none');
+      } else {
+        setStatus('Conversion failed. Please try again.', 'error');
+        convertBtn.disabled = false;
+      }
+    };
+
+    xhr.onerror = function () {
+      setStatus('Network error. Please try again.', 'error');
+      convertBtn.disabled = false;
+    };
+
+    xhr.send(formData);
+  });
+
+  resetBtn.addEventListener('click', resetUI);
+})();
+</script>
+{% endblock %}
