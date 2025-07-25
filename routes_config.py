@@ -14,7 +14,10 @@ ALL_TOOLS = [
     {"path": "/compress-pdf",   "priority": "0.9", "changefreq": "monthly"},
     {"path": "/convert-pdf",    "priority": "0.9", "changefreq": "monthly"},
     {"path": "/watermark-pdf",  "priority": "0.9", "changefreq": "monthly"},
-    # Dodaj še ostala orodja (convert, rotate, watermark, ...)
+    
+    # NOVO:
+    {"path": "/word-to-pdf",    "priority": "0.9", "changefreq": "monthly"},
+    {"path": "/pdf-to-word",    "priority": "0.9", "changefreq": "monthly"},
 ]
 
 ALL_BLOG_POSTS = [
