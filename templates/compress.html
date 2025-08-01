@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Compress PDF - Reduce PDF File Size Online | PDF Hub{% endblock %}
-{% block description %}Easily compress large PDF files without losing quality. Use PDFHub to reduce PDF file size online – fast, free and secure.{% endblock %}
+{% block title %}Compress PDF – Reduce File Size Online Free | PDFHub{% endblock %}
+{% block description %}Shrink your PDF files without losing quality. Fast, secure, and 100% free online PDF compressor. Optimize your PDFs now!{% endblock %}
+
+{% block og_title %}Compress PDF Files Online | PDFHub{% endblock %}
+{% block og_description %}Reduce your PDF file size with our free and easy-to-use online compressor.{% endblock %}
+{% block og_image %}https://pdfhub.org/static/og/compress-preview.webp{% endblock %}
+
+{% block twitter_title %}Free PDF Compressor – Online & Secure | PDFHub{% endblock %}
+{% block twitter_description %}Compress your PDF documents without losing quality. No signup, no watermark.{% endblock %}
+{% block twitter_image %}https://pdfhub.org/static/og/compress-preview.webp{% endblock %}
 
 {% block extra_head %}
   <link rel="canonical" href="https://www.pdfhub.org/compress-pdf">
@@ -20,6 +28,38 @@
         "priceCurrency": "EUR"
       }
     }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I compress a large PDF file?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF and PDFHub will automatically reduce its file size while keeping visual quality."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the PDF compression secure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all files are encrypted during transfer and automatically deleted after processing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does compression affect quality?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our tool is optimized to minimize size while maintaining readability and image clarity."
+        }
+      }
+    ]
+  }
   </script>
 {% endblock %}
 

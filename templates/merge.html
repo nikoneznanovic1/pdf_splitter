@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Merge PDF - Combine PDF Files for Free | PDF Hub{% endblock %}
-{% block description %}Easily merge multiple PDF files into one document. Fast, free and secure online PDF combiner powered by PDFHub.org.{% endblock %}
+{% block title %}Merge PDF Files – Combine PDFs Online for Free | PDFHub{% endblock %}
+{% block description %}Easily combine multiple PDF documents into one. Drag, drop, and merge PDFs securely in your browser – no installation needed.{% endblock %}
+
+{% block og_title %}Merge PDF Online | PDFHub{% endblock %}
+{% block og_description %}Combine several PDF files into one in seconds. Secure, fast, and free online merging.{% endblock %}
+{% block og_image %}https://pdfhub.org/static/og/merge-preview.webp{% endblock %}
+
+{% block twitter_title %}Free Online PDF Merger | PDFHub{% endblock %}
+{% block twitter_description %}Merge multiple PDFs into one file online. No registration, 100% free.{% endblock %}
+{% block twitter_image %}https://pdfhub.org/static/og/merge-preview.webp{% endblock %}
 
 {% block extra_head %}
   <link rel="canonical" href="https://www.pdfhub.org/merge-pdf">
@@ -20,6 +28,39 @@
         "priceCurrency": "EUR"
       }
     }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I merge multiple PDF files?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload all the PDF files you want to merge and click 'Merge'. PDFHub will combine them into one file instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is PDF merging secure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, your files are transferred securely and deleted from our server shortly after processing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to install anything?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No installation needed. All merging is done in your browser."
+        }
+      }
+    ]
+  }
   </script>
 {% endblock %}
 

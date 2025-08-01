@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Free and easy PDF tools to split, merge, compress, convert and watermark your PDF files online." />
+  <meta name="description" content="{% block description %}Free and easy PDF tools to split, merge, compress, convert and watermark your PDF files online.{% endblock %}" />
   <meta name="keywords" content="pdf tools, split pdf, merge pdf, compress pdf, convert pdf, watermark pdf, free pdf editor" />
   <meta name="author" content="PDF Hub" />
 
-  <title>PDF Hub - Free Online PDF Tools</title>
+  <title>{% block title %}PDF Hub - Free Online PDF Tools{% endblock %}</title>
   <link rel="canonical" href="https://pdfhub.org/" />
 
   <!-- Open Graph for social sharing -->
-  <meta property="og:title" content="PDF Hub - Free Online PDF Tools" />
-  <meta property="og:description" content="Split, merge, compress, convert and watermark PDFs with ease. 100% free and secure." />
-  <meta property="og:image" content="https://pdfhub.org/static/og-image.webp" />
-  <meta property="og:url" content="https://pdfhub.org/" />
+  <meta property="og:title" content="{% block og_title %}PDF Hub - Free Online PDF Tools{% endblock %}" />
+  <meta property="og:description" content="{% block og_description %}Split, merge, compress, convert and watermark PDFs with ease. 100% free and secure.{% endblock %}" />
+  <meta property="og:image" content="{% block og_image %}https://pdfhub.org/static/og-image.webp{% endblock %}" />
+  <meta property="og:url" content="{{ request.url }}" />
   <meta property="og:type" content="website" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="PDF Hub - Free Online PDF Tools" />
-  <meta name="twitter:description" content="All-in-one PDF toolkit. 100% free and no signup." />
-  <meta name="twitter:image" content="https://pdfhub.org/static/og-image.webp" />
+  <meta name="twitter:title" content="{% block twitter_title %}PDF Hub - Free Online PDF Tools{% endblock %}" />
+  <meta name="twitter:description" content="{% block twitter_description %}All-in-one PDF toolkit. 100% free and no signup.{% endblock %}" />
+  <meta name="twitter:image" content="{% block twitter_image %}https://pdfhub.org/static/og-image.webp{% endblock %}" />
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">

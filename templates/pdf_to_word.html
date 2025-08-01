@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
+{% block title %}PDF to Word Converter – Free & Accurate | PDFHub{% endblock %}
+{% block description %}Turn PDFs into editable Word documents instantly. Our free converter keeps formatting intact and works right in your browser.{% endblock %}
+
+{% block og_title %}Convert PDF to Word | PDFHub{% endblock %}
+{% block og_description %}Convert your PDF files into fully editable Word documents. No software needed.{% endblock %}
+{% block og_image %}https://pdfhub.org/static/og/pdf-to-word-preview.webp{% endblock %}
+
+{% block twitter_title %}PDF to Word – Free Online Converter | PDFHub{% endblock %}
+{% block twitter_description %}Easily turn PDF documents into editable Word files. Accurate & free online tool.{% endblock %}
+{% block twitter_image %}https://pdfhub.org/static/og/pdf-to-word-preview.webp{% endblock %}
+
 {% block extra_head %}
 <style>
   .tool-hero { max-width: 780px; margin: 0 auto; }
@@ -12,6 +23,40 @@
   .hidden { display: none !important; }
   .file-name { word-break: break-all; }
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I convert a PDF to Word for free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, PDFHub offers a free PDF to Word converter with no watermarks or signup required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will the converted Word document be editable?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the resulting Word file is fully editable, preserving original layout and formatting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work with scanned PDFs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, PDFHub does not perform OCR. The tool only works with digitally generated PDFs."
+      }
+    }
+  ]
+}
+</script>
+
 {% endblock %}
 
 {% block content %}

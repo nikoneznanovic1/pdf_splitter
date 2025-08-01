@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Add Watermark to PDF - Free Online Tool | PDF Hub{% endblock %}
-{% block description %}Easily add watermark text to your PDF files online. Free, secure, and no signup required. Customize font, position, and more.{% endblock %}
+{% block title %}Watermark PDF – Add Text or Image to PDF Files | PDFHub{% endblock %}
+{% block description %}Add a watermark to your PDF in seconds. Upload, customize text or logo, and protect your files easily – 100% free.{% endblock %}
+
+{% block og_title %}Add Watermark to PDF | PDFHub{% endblock %}
+{% block og_description %}Protect your PDF by adding watermark text or logo. Online, easy and free.{% endblock %}
+{% block og_image %}https://pdfhub.org/static/og/watermark-preview.webp{% endblock %}
+
+{% block twitter_title %}Watermark PDFs Online | PDFHub{% endblock %}
+{% block twitter_description %}Apply watermark text or images to your PDF documents easily online.{% endblock %}
+{% block twitter_image %}https://pdfhub.org/static/og/watermark-preview.webp{% endblock %}
 
 {% block extra_head %}
   <link rel="canonical" href="https://www.pdfhub.org/watermark-pdf">
@@ -20,6 +28,39 @@
         "priceCurrency": "EUR"
       }
     }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How can I add a watermark to my PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF, type your watermark text or upload an image, and apply it using PDFHub."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I customize the watermark position?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, you can choose position, opacity, and rotation for your watermark."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this tool free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, PDFHub watermark tool is free and easy to use."
+        }
+      }
+    ]
+  }
   </script>
 {% endblock %}
 

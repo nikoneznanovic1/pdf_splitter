@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Convert PDF to Images - Free PDF Converter | PDF Hub{% endblock %}
-{% block description %}Easily convert PDF pages into high-quality images (JPG/PNG). Use our free online PDF to image converter – quick, secure, and reliable.{% endblock %}
+{% block title %}Convert PDF – Free Online PDF Converter | PDFHub{% endblock %}
+{% block description %}Convert your PDFs to Word, Excel, JPG and more. Free, easy, and fast online PDF conversion tool for all major formats.{% endblock %}
+
+{% block og_title %}Convert PDF Files Online | PDFHub{% endblock %}
+{% block og_description %}Convert PDFs to various formats like DOCX, XLSX, JPG and more. Simple & free.{% endblock %}
+{% block og_image %}https://pdfhub.org/static/og/convert-preview.webp{% endblock %}
+
+{% block twitter_title %}Free PDF Converter Online | PDFHub{% endblock %}
+{% block twitter_description %}Fast and free tool to convert PDF to Word, Excel, and images.{% endblock %}
+{% block twitter_image %}https://pdfhub.org/static/og/convert-preview.webp{% endblock %}
 
 {% block extra_head %}
   <link rel="canonical" href="https://www.pdfhub.org/convert-pdf">
@@ -20,6 +28,39 @@
         "priceCurrency": "EUR"
       }
     }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Which formats can I convert my PDF to?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can convert your PDF to Word, Excel, JPG, PNG, and other popular formats using PDFHub."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the conversion accurate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our converter preserves formatting as closely as possible."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to create an account?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No signup is required. Just upload and convert – it's that simple."
+        }
+      }
+    ]
+  }
   </script>
 {% endblock %}
 

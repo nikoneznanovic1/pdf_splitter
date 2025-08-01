@@ -219,6 +219,14 @@ def blog_split_pdf():
 def blog_ai_pdf_tools():
     return render_template('blog/best_ai_pdf_tools_2025.html')
 
+@app.route('/blog/convert-word-pdf-guide')
+def convert_word_pdf_guide():
+    return render_template('blog/convert_word_pdf_guide.html')
+
+@app.route('/test')
+def test():
+    return render_template('blog/convert_word_pdf_guide.html')
+
 @app.route("/sitemap.xml", methods=["GET"])
 def sitemap():
     today = date.today().isoformat()

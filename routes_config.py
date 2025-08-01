@@ -26,6 +26,7 @@ ALL_BLOG_POSTS = [
     {"path": "/blog/how-to-compress-pdfs",           "priority": "0.7", "changefreq": "monthly"},
     {"path": "/blog/how-to-split-pdf-online-guide",  "priority": "0.7", "changefreq": "monthly"},
     {"path": "/blog/best-ai-pdf-tools-2025",         "priority": "0.7", "changefreq": "monthly"},
+    {"path": "/blog/convert-word-pdf-guide",         "priority": "0.7", "changefreq": "monthly"},
 ]
 
 def get_all_urls():

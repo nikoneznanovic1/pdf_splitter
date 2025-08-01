@@ -1,25 +1,65 @@
 {% extends "base.html" %}
 
-{% block title %}Split PDF - Free Online PDF Splitter | PDF Hub{% endblock %}
-{% block description %}Use our free online tool to split PDF files into individual pages. Secure, fast, and easy to use. Powered by PDFHub.org.{% endblock %}
+{% block title %}Split PDF – Extract Pages from PDF Files Online | PDFHub{% endblock %}
+{% block description %}Separate one PDF into multiple files. Extract selected pages with our free and easy-to-use PDF splitter tool.{% endblock %}
+
+{% block og_title %}Split PDF Online | PDFHub{% endblock %}
+{% block og_description %}Extract specific pages from your PDF quickly and securely online. Free, no signup needed.{% endblock %}
+{% block og_image %}https://pdfhub.org/static/og/split-preview.webp{% endblock %}
+
+{% block twitter_title %}Split PDF Files – Free Online Tool | PDFHub{% endblock %}
+{% block twitter_description %}Extract pages from any PDF document. Easy, secure and 100% free.{% endblock %}
+{% block twitter_image %}https://pdfhub.org/static/og/split-preview.webp{% endblock %}
 
 {% block extra_head %}
   <link rel="canonical" href="https://pdfhub.org/split-pdf">
   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Split PDF - PDFHub",
-      "operatingSystem": "All",
-      "applicationCategory": "UtilitiesApplication",
-      "url": "https://www.pdfhub.org/split-pdf",
-      "description": "Split PDF files into individual pages quickly and securely with PDFHub. Free and easy-to-use online tool.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0.00",
-        "priceCurrency": "EUR"
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Split PDF - PDFHub",
+        "operatingSystem": "All",
+        "applicationCategory": "UtilitiesApplication",
+        "url": "https://www.pdfhub.org/split-pdf",
+        "description": "Split PDF files into individual pages quickly and securely with PDFHub. Free and easy-to-use online tool.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0.00",
+          "priceCurrency": "EUR"
+        }
       }
-    }
+    </script>
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How can I split a PDF file?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF and select the pages you want to extract. PDFHub will create a new file with the selected pages."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is splitting a PDF free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all PDF tools on PDFHub, including the splitter, are completely free."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will the quality be preserved?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, splitting your PDF will not affect the quality of text or images."
+        }
+      }
+    ]
+  }
   </script>
 {% endblock %}
 

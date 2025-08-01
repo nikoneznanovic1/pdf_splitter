@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
+{% block title %}Convert Word to PDF – Free Online DOCX to PDF | PDFHub{% endblock %}
+{% block description %}Easily convert Word documents (.doc, .docx) to PDF in seconds. No signup, no watermark – 100% free. Start converting your files today on PDFHub.{% endblock %}
+
+{% block og_title %}Word to PDF Converter | PDFHub{% endblock %}
+{% block og_description %}Convert Word documents to PDF quickly and accurately. Online and free.{% endblock %}
+{% block og_image %}https://pdfhub.org/static/og/word-to-pdf-preview.webp{% endblock %}
+
+{% block twitter_title %}Free Word to PDF Tool | PDFHub{% endblock %}
+{% block twitter_description %}Upload your DOC or DOCX file and convert it to PDF instantly. 100% free, no watermark.{% endblock %}
+{% block twitter_image %}https://pdfhub.org/static/og/word-to-pdf-preview.webp{% endblock %}
+
 {% block extra_head %}
 <style>
   .tool-hero { max-width: 780px; margin: 0 auto; }
@@ -12,6 +23,39 @@
   .hidden { display: none !important; }
   .file-name { word-break: break-all; }
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I convert a Word document to PDF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Simply upload your .doc or .docx file to PDFHub, and it will convert it automatically to PDF. No signup needed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Word to PDF conversion free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, our Word to PDF converter is 100% free and does not add watermarks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will the formatting stay the same?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, your original formatting such as fonts, images, and layout will be preserved during conversion."
+      }
+    }
+  ]
+}
+</script>
 {% endblock %}
 
 {% block content %}
