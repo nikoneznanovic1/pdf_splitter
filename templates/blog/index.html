@@ -1,11 +1,28 @@
 {% extends "base.html" %}
 
+{% block title %}PDFHub Blog – PDF Tips, Guides & Tutorials{% endblock %}
+{% block description %}Read practical guides on how to merge, split, compress and convert PDF files, plus AI PDF workflows. Always free and up to date.{% endblock %}
+{% block canonical %}<link rel="canonical" href="https://pdfhub.org/blog">{% endblock %}
+
 {% block content %}
 <div class="container my-5 text-start">
   <h1 class="text-primary fw-bold mb-4 text-center">PDFHub Blog</h1>
   <p class="lead text-center mb-5">
     Tips, tutorials, and guides to help you work smarter with PDFs. Free, practical, always up to date.
   </p>
+
+  {# interno povezovanje na glavna orodja – da iz /blog gre juice na tools #}
+  <div class="mb-5 text-center">
+    <p class="mb-2 fw-semibold">Popular PDF tools</p>
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+      <a href="/merge-pdf" class="btn btn-outline-primary btn-sm">Merge PDF</a>
+      <a href="/split-pdf" class="btn btn-outline-primary btn-sm">Split PDF</a>
+      <a href="/compress-pdf" class="btn btn-outline-primary btn-sm">Compress PDF</a>
+      <a href="/convert-pdf" class="btn btn-outline-primary btn-sm">Convert PDF</a>
+      <a href="/pdf-to-word" class="btn btn-outline-primary btn-sm">PDF to Word</a>
+      <a href="/word-to-pdf" class="btn btn-outline-primary btn-sm">Word to PDF</a>
+    </div>
+  </div>
 
   <div class="row g-4">
 
@@ -94,7 +111,7 @@
       </div>
     </div>
 
-        <!-- How to Convert Word to PDF (and Vice Versa) -->
+    <!-- How to Convert Word to PDF (and Vice Versa) -->
     <div class="col-md-6 col-lg-4">
       <div class="card h-100 shadow-sm border-0">
         <img
