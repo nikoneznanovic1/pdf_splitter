@@ -12,7 +12,7 @@
 {% block twitter_image %}https://pdfhub.org/static/og/convert-preview.webp{% endblock %}
 
 {% block extra_head %}
-  <link rel="canonical" href="https://www.pdfhub.org/convert-pdf">
+  <link rel="canonical" href="https://pdfhub.org/convert-pdf">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -20,7 +20,7 @@
       "name": "Convert PDF - PDFHub",
       "operatingSystem": "All",
       "applicationCategory": "UtilitiesApplication",
-      "url": "https://www.pdfhub.org/convert-pdf",
+      "url": "https://pdfhub.org/convert-pdf",
       "description": "Convert PDF pages to JPG or PNG images with ease. Free and secure online PDF converter with no installation needed.",
       "offers": {
         "@type": "Offer",
@@ -124,10 +124,14 @@
 
     xhr.onload = function() {
       if (xhr.status === 200) {
-        gtag('event', 'convert_pdf_completed', {
-          event_category: 'PDF Tools',
-          event_label: 'Convert PDF Success'
-        });
+        try {
+          gtag('event', 'convert_pdf_completed', {
+            event_category: 'PDF Tools',
+            event_label: 'Convert PDF Success'
+          });
+        } catch (err) {
+          // GA not loaded, ignore
+        }
 
         const blob = new Blob([xhr.response], { type: 'application/zip' });
         const link = document.createElement('a');
@@ -155,5 +159,17 @@
     }
   });
 </script>
+
+<!-- Related tools -->
+<section class="text-start mt-5">
+  <h2>Other PDF tools</h2>
+  <p>Need to do more with your files?</p>
+  <ul>
+    <li><a href="/merge-pdf">Merge PDF</a> – combine multiple PDFs into one</li>
+    <li><a href="/split-pdf">Split PDF</a> – extract specific pages</li>
+    <li><a href="/compress-pdf">Compress PDF</a> – reduce file size for email</li>
+    <li><a href="/watermark-pdf">Watermark PDF</a> – protect your documents</li>
+  </ul>
+</section>
 
 {% endblock %}

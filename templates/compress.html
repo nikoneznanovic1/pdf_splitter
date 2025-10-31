@@ -12,7 +12,7 @@
 {% block twitter_image %}https://pdfhub.org/static/og/compress-preview.webp{% endblock %}
 
 {% block extra_head %}
-  <link rel="canonical" href="https://www.pdfhub.org/compress-pdf">
+  <link rel="canonical" href="https://pdfhub.org/compress-pdf">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -20,7 +20,7 @@
       "name": "Compress PDF - PDFHub",
       "operatingSystem": "All",
       "applicationCategory": "UtilitiesApplication",
-      "url": "https://www.pdfhub.org/compress-pdf",
+      "url": "https://pdfhub.org/compress-pdf",
       "description": "Compress your PDF files online and reduce file size without losing quality. Free, secure and easy to use.",
       "offers": {
         "@type": "Offer",
@@ -123,10 +123,14 @@
 
     xhr.onload = function() {
       if (xhr.status === 200) {
-        gtag('event', 'compress_pdf_completed', {
-          event_category: 'PDF Tools',
-          event_label: 'Compress PDF Success'
-        });
+        try {
+          gtag('event', 'compress_pdf_completed', {
+            event_category: 'PDF Tools',
+            event_label: 'Compress PDF Success'
+          });
+        } catch (err) {
+          // GA not loaded, ignore
+        }
 
         const blob = new Blob([xhr.response], { type: 'application/pdf' });
         const link = document.createElement('a');
@@ -154,5 +158,17 @@
     }
   });
 </script>
+
+<!-- Related tools -->
+<section class="text-start mt-5">
+  <h2>Other PDF tools</h2>
+  <p>Do you need to do more with your files?</p>
+  <ul>
+    <li><a href="/merge-pdf">Merge PDF</a> – combine multiple PDFs into one</li>
+    <li><a href="/split-pdf">Split PDF</a> – extract specific pages</li>
+    <li><a href="/convert-pdf">Convert PDF</a> – transform PDFs to other formats</li>
+    <li><a href="/watermark-pdf">Watermark PDF</a> – protect your documents</li>
+  </ul>
+</section>
 
 {% endblock %}

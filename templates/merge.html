@@ -5,14 +5,17 @@
 
 {% block og_title %}Merge PDF Online | PDFHub{% endblock %}
 {% block og_description %}Combine several PDF files into one in seconds. Secure, fast, and free online merging.{% endblock %}
-{% block og_image %}https://pdfhub.org/static/og/merge-preview.webp{% endblock %}
+{% block og_image %}https://pdfhub.org/static/og-image.webp{% endblock %}
 
 {% block twitter_title %}Free Online PDF Merger | PDFHub{% endblock %}
 {% block twitter_description %}Merge multiple PDFs into one file online. No registration, 100% free.{% endblock %}
-{% block twitter_image %}https://pdfhub.org/static/og/merge-preview.webp{% endblock %}
+{% block twitter_image %}https://pdfhub.org/static/og-image.webp{% endblock %}
 
 {% block extra_head %}
-  <link rel="canonical" href="https://www.pdfhub.org/merge-pdf">
+  {# canonical naj bo brez www, da bo konsistentno s sitemapom in robots.txt #}
+  <link rel="canonical" href="https://pdfhub.org/merge-pdf">
+
+  {# SoftwareApplication schema #}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -20,7 +23,7 @@
       "name": "Merge PDF - PDFHub",
       "operatingSystem": "All",
       "applicationCategory": "UtilitiesApplication",
-      "url": "https://www.pdfhub.org/merge-pdf",
+      "url": "https://pdfhub.org/merge-pdf",
       "description": "Merge multiple PDF files into one document. Free, secure and easy to use with PDFHub.",
       "offers": {
         "@type": "Offer",
@@ -30,6 +33,7 @@
     }
   </script>
 
+  {# FAQ schema #}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -95,6 +99,18 @@
 
 <p class="mt-4"><a href="/" class="text-decoration-none">⬅ Back to Home</a></p>
 
+<!-- Related tools -->
+<section class="text-start mt-5">
+  <h2>Other PDF tools</h2>
+  <p>You can do more with PDFHub:</p>
+  <ul>
+    <li><a href="/split-pdf">Split PDF</a> – separate pages from your PDF</li>
+    <li><a href="/compress-pdf">Compress PDF</a> – reduce file size for email</li>
+    <li><a href="/convert-pdf">Convert PDF</a> – turn your PDF into other formats</li>
+    <li><a href="/watermark-pdf">Watermark PDF</a> – protect your document</li>
+  </ul>
+</section>
+
 <!-- AJAX Logic -->
 <script>
   const form = document.getElementById('mergeForm');
@@ -124,10 +140,14 @@
 
     xhr.onload = function() {
       if (xhr.status === 200) {
-        gtag('event', 'merge_pdf_completed', {
-          event_category: 'PDF Tools',
-          event_label: 'Merge PDF Success'
-        });
+        try {
+          gtag('event', 'merge_pdf_completed', {
+            event_category: 'PDF Tools',
+            event_label: 'Merge PDF Success'
+          });
+        } catch (err) {
+          // GA not loaded, ignore
+        }
 
         const blob = new Blob([xhr.response], { type: 'application/pdf' });
         const link = document.createElement('a');

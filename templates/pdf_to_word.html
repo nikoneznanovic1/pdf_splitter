@@ -12,6 +12,7 @@
 {% block twitter_image %}https://pdfhub.org/static/og/pdf-to-word-preview.webp{% endblock %}
 
 {% block extra_head %}
+<link rel="canonical" href="https://pdfhub.org/pdf-to-word">
 <style>
   .tool-hero { max-width: 780px; margin: 0 auto; }
   .dropzone {
@@ -125,6 +126,18 @@
     </ul>
   </section>
 </div>
+
+<!-- Related tools -->
+<section class="text-start mt-5 container" style="max-width: 780px;">
+  <h2>Other PDF tools</h2>
+  <p>Need to do something else with your PDFs?</p>
+  <ul>
+    <li><a href="/word-to-pdf">Word to PDF</a> – convert back to PDF</li>
+    <li><a href="/compress-pdf">Compress PDF</a> – reduce file size</li>
+    <li><a href="/merge-pdf">Merge PDF</a> – combine multiple files</li>
+    <li><a href="/split-pdf">Split PDF</a> – extract specific pages</li>
+  </ul>
+</section>
 
 <script>
 (function () {
@@ -272,6 +285,15 @@
         a.click();
         a.remove();
         window.URL.revokeObjectURL(url);
+
+        try {
+          gtag('event', 'pdf_to_word_completed', {
+            event_category: 'PDF Tools',
+            event_label: 'PDF to Word Success'
+          });
+        } catch (err) {
+          // GA not loaded, ignore
+        }
 
         setStatus('Done! Your DOCX has been downloaded.');
         resetBtn.classList.remove('d-none');

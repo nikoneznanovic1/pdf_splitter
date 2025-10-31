@@ -2,19 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  {# osnovni SEO #}
+  <meta name="robots" content="index, follow" />
   <meta name="description" content="{% block description %}Free and easy PDF tools to split, merge, compress, convert and watermark your PDF files online.{% endblock %}" />
   <meta name="keywords" content="pdf tools, split pdf, merge pdf, compress pdf, convert pdf, watermark pdf, free pdf editor" />
   <meta name="author" content="PDF Hub" />
 
+  {# title #}
   <title>{% block title %}PDF Hub - Free Online PDF Tools{% endblock %}</title>
-  <link rel="canonical" href="{{ request.url }}" />
+
+  {# canonical – če child ne poda svojega, uporabimo request.url #}
+  {% block canonical %}{% endblock %}
+  {% if request %}
+    <link rel="canonical" href="{{ request.url }}" />
+  {% else %}
+    <link rel="canonical" href="https://pdfhub.org/" />
+  {% endif %}
 
   <!-- Open Graph for social sharing -->
   <meta property="og:title" content="{% block og_title %}PDF Hub - Free Online PDF Tools{% endblock %}" />
   <meta property="og:description" content="{% block og_description %}Split, merge, compress, convert and watermark PDFs with ease. 100% free and secure.{% endblock %}" />
   <meta property="og:image" content="{% block og_image %}https://pdfhub.org/static/og-image.webp{% endblock %}" />
-  <meta property="og:url" content="{{ request.url }}" />
+  <meta property="og:url" content="{{ request.url if request else 'https://pdfhub.org/' }}" />
   <meta property="og:type" content="website" />
 
   <!-- Twitter Card -->
@@ -39,14 +51,14 @@
     body { font-family: 'Poppins', sans-serif; }
 
     .logo-img {
-        max-width: 200px;
-        height: auto;
-        }
+      max-width: 200px;
+      height: auto;
+    }
 
-        @media (max-width: 576px) {
-        .logo-img {
-            max-width: 120px;
-        }
+    @media (max-width: 576px) {
+      .logo-img {
+        max-width: 120px;
+      }
     }
   </style>
 
@@ -67,10 +79,10 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "PDFHub",
-      "url": "https://www.pdfhub.org",
+      "url": "https://pdfhub.org",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://www.pdfhub.org/search?q={search_term_string}",
+        "target": "https://pdfhub.org/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     }
@@ -86,10 +98,10 @@
     <header class="mb-4">
       <a href="/">
         <img src="{{ url_for('static', filename='og-image.webp') }}"
-            loading="lazy"
-            alt="PDF Hub Logo"
-            width="200" height="105"
-            class="img-fluid logo-img" />
+             loading="lazy"
+             alt="PDF Hub Logo"
+             width="200" height="105"
+             class="img-fluid logo-img" />
       </a>
     </header>
 
@@ -107,16 +119,16 @@
     <main>
       {% block content %}
         <style>
-            .logo-404 {
-                max-height: 100px;
-                width: auto;
-            }
+          .logo-404 {
+            max-height: 100px;
+            width: auto;
+          }
 
-            @media (max-width: 576px) {
-                .logo-404 {
-                max-height: 100px;
-                }
+          @media (max-width: 576px) {
+            .logo-404 {
+              max-height: 100px;
             }
+          }
         </style>
       {% endblock %}
     </main>
@@ -165,9 +177,9 @@
           crossorigin="anonymous"></script>
   <script>
     window.addEventListener("load", function () {
-        setTimeout(function () {
+      setTimeout(function () {
         (adsbygoogle = window.adsbygoogle || []).push({});
-        }, 1000); // zamik 1 s
+      }, 1000);
     });
   </script>
 </body>
